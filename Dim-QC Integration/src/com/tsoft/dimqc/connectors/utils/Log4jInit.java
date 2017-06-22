@@ -1,4 +1,4 @@
-package ar.com.tssa.serena.connectors.utils;
+package com.tsoft.dimqc.connectors.utils;
 
 import org.apache.log4j.PropertyConfigurator;
 

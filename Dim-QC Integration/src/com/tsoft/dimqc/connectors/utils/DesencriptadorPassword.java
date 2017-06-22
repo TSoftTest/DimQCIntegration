@@ -1,4 +1,4 @@
-package ar.com.tssa.serena.connectors.utils;
+package com.tsoft.dimqc.connectors.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,23 +12,23 @@ import org.apache.log4j.Logger;
 import coop.bancocredicoop.batch.security.Configuration;
 import coop.bancocredicoop.service.security.ClaveHashService;
 
-
 public class DesencriptadorPassword {
 
 	private static Logger logger = Logger.getRootLogger();
-	
-	public static String obtenerPassword(String rutaArchivoKey, String rutaArchivoHash){
-		
-		//logger.debug("Desencriptando la password que se encuentra en el archivo " + rutaArchivoKey + " y en " + rutaArchivoHash);
-		Security.addProvider( new org.bouncycastle.jce.provider.BouncyCastleProvider());
+
+	public static String obtenerPassword(String rutaArchivoKey, String rutaArchivoHash) {
+
+		// logger.debug("Desencriptando la password que se encuentra en el archivo "
+		// + rutaArchivoKey + " y en " + rutaArchivoHash);
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 		String claveNumerica = claveNumerica(rutaArchivoHash);
-		if (claveNumerica != null){
-			
+		if (claveNumerica != null) {
+
 			Configuration configuration = new Configuration();
 			configuration.setPublicKeyPath(rutaArchivoKey);
-			
+
 			ClaveHashService claveHashService = new ClaveHashService(configuration);
-			
+
 			try {
 				return (claveHashService.desencriptar(claveNumerica));
 			} catch (Exception e) {
@@ -37,40 +37,40 @@ public class DesencriptadorPassword {
 			}
 
 		}
-		
+
 		return null;
 	}
-	
-	private static String claveNumerica(String rutaArchivoHash){
+
+	private static String claveNumerica(String rutaArchivoHash) {
 		FileReader fr = null;
-		
-		try{    
-			
+
+		try {
+
 			File archivo = new File(rutaArchivoHash);
 			fr = new FileReader(archivo);
 			BufferedReader br = new BufferedReader(fr);
 			String linea = br.readLine();
-			if (linea != null){
+			if (linea != null) {
 				linea = linea.trim();
 			}
-			
-			try{
+
+			try {
 				new BigInteger(linea);
-			}catch (NumberFormatException ex) {
+			} catch (NumberFormatException ex) {
 				logger.error("Error, el Hash no es una clave numérica.");
 				logger.error(ex);
 				return null;
 			}
-			
-			return linea;			
-			
+
+			return linea;
+
 		} catch (IOException e) {
-			
+
 			logger.error("Error al intentar obtener la clave numérica.");
 			logger.error(e);
 			return null;
-		} finally{
-			if (fr != null){
+		} finally {
+			if (fr != null) {
 				try {
 					fr.close();
 				} catch (IOException e) {

@@ -1,4 +1,4 @@
-package ar.com.tssa.serena.connectors.exceptions;
+package com.tsoft.dimqc.connectors.exceptions;
 
 /**
  * @author nrusz
@@ -11,5 +11,5 @@ public class ServiceException extends RuntimeException {
 	public ServiceException(String message) {
 		super(message);
 	}
-	
+
 }

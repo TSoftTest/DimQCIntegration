@@ -1,4 +1,4 @@
-package ar.com.tssa.serena.connectors.exceptions;
+package com.tsoft.dimqc.connectors.exceptions;
 
 /**
  * @author nrusz
@@ -11,7 +11,7 @@ public class PropertiesException extends RuntimeException {
 	public PropertiesException(String message) {
 		super(message);
 	}
-	
+
 	public PropertiesException(String message, Throwable ex) {
 		super(message, ex);
 	}

@@ -1,7 +1,5 @@
-package ar.com.tssa.serena.connectors.utils.parser;
-
+package com.tsoft.dimqc.connectors.utils.parser;
 
 public class HtmlWrapperHtml extends HtmlWrapperComposite {
-
 
 }
