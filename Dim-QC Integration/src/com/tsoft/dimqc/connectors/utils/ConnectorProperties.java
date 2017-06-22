@@ -3,8 +3,12 @@ package com.tsoft.dimqc.connectors.utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.security.Security;
 import java.util.Properties;
 
 import javax.naming.ConfigurationException;
@@ -14,15 +18,20 @@ import org.apache.log4j.Logger;
 import com.tsoft.dimqc.connectors.exceptions.PropertiesException;
 import com.tsoft.dimqc.database.TipoConexion;
 
+import coop.bancocredicoop.batch.security.Configuration;
+import coop.bancocredicoop.service.security.ClaveHashService;
+
 /**
  * @author nrusz
  * 
  */
 public class ConnectorProperties {
 
-	private Logger logger = Logger.getRootLogger();
+	private static Logger logger = Logger.getRootLogger();
+
 	private static String propertiesPath = "C:/qcdim/connector.properties";
 	private static ConnectorProperties instance = null;
+
 	private Properties properties = new Properties();
 
 	private ConnectorProperties() {
@@ -37,7 +46,7 @@ public class ConnectorProperties {
 			BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
 			nuevoPath = br.readLine(); // SI NO RECONOCIO LA VARIABLE O NO ESTA, LA
-																 // LINEA DEVUELVE: %QCDIM_CONF%
+			                           // LINEA DEVUELVE: %QCDIM_CONF%
 			if (nuevoPath != null && !"%QCDIM_CONF%".equals(nuevoPath)) {
 				File fichero = new File(nuevoPath);
 				if (fichero.exists()) {
@@ -134,7 +143,7 @@ public class ConnectorProperties {
 	 * @return la clave del usuario de conexion de la base de datos de Dimensions
 	 */
 	public String getDbPasswordDim() {
-		return DesencriptadorPassword.obtenerPassword(instance.getProperty("rutaArchivoKeyDim"), instance.getProperty("rutaArchivoHashDim"));
+		return obtenerPassword(instance.getProperty("rutaArchivoKeyDim"), instance.getProperty("rutaArchivoHashDim"));
 	}
 
 	/**
@@ -376,14 +385,72 @@ public class ConnectorProperties {
 	}
 
 	public String getDataBaseDimPass() {
-		return DesencriptadorPassword.obtenerPassword(instance.getProperty("rutaArchivoKeyBaseDim"), instance.getProperty("rutaArchivoHashBaseDim"));
+		return obtenerPassword(instance.getProperty("rutaArchivoKeyBaseDim"), instance.getProperty("rutaArchivoHashBaseDim"));
+
+	}
+
+	private static String obtenerPassword(String rutaArchivoKey, String rutaArchivoHash) {
+		Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
+		String claveNumerica = claveNumerica(rutaArchivoHash);
+		if (claveNumerica != null) {
+
+			Configuration configuration = new Configuration();
+			configuration.setPublicKeyPath(rutaArchivoKey);
+
+			ClaveHashService claveHashService = new ClaveHashService(configuration);
+
+			try {
+				return (claveHashService.desencriptar(claveNumerica));
+			} catch (Exception e) {
+				logger.error("Error al intentar desencriptar la clave que posee Key en el archivo " + rutaArchivoKey + " y Hash en " + rutaArchivoHash);
+				logger.error(e);
+			}
+
+		}
+
+		return null;
+	}
+
+	private static String claveNumerica(String rutaArchivoHash) {
+		FileReader fr = null;
+
+		try {
+			File archivo = new File(rutaArchivoHash);
+			fr = new FileReader(archivo);
+			BufferedReader br = new BufferedReader(fr);
+			String linea = br.readLine();
+			if (linea != null) {
+				linea = linea.trim();
+			}
+
+			try {
+				new BigInteger(linea);
+			} catch (NumberFormatException ex) {
+				logger.error("Error, el Hash no es una clave numérica.");
+				logger.error(ex);
+				return null;
+			}
+
+			return linea;
+		} catch (IOException e) {
+			logger.error("Error al intentar obtener la clave numérica.");
+			logger.error(e);
+			return null;
+		} finally {
+			if (fr != null) {
+				try {
+					fr.close();
+				} catch (IOException e) {
+					logger.error("Error al intentar cerrar el archivo:" + rutaArchivoHash);
+					logger.error(e);
+				}
+			}
+		}
 	}
 
 	public String getDataBaseDimSdi() {
 		return instance.getProperty("dimDbOracleSDI");
 	}
-
-	// FIN - Conexion a la base de Dimensions
 
 	/**
 	 * Devuelve la cantidad maxima de campos comentarios (para los campos
@@ -464,18 +531,6 @@ public class ConnectorProperties {
 	 * @return la pass de la base de Qc
 	 */
 	public String getQcDataBasePass() {
-		// Se comenta porque en el banco todavia no esta la clave encriptada y
-		// muestra un supuesto error al intentar desencriptar
-		/*
-		 * try{ if (instance.getProperty("rutaArchivoKeyBaseQc") != null &&
-		 * instance.getProperty("rutaArchivoHashBaseQc") != null){ return
-		 * DesencriptadorPassword
-		 * .obtenerPassword(instance.getProperty("rutaArchivoKeyBaseQc"),
-		 * instance.getProperty("rutaArchivoHashBaseQc")); } } catch (Exception e) {
-		 * return instance.getProperty("qcDbPass"); }
-		 * 
-		 * return null;
-		 */
 		return instance.getProperty("qcDbPass");
 	}
 

@@ -1,0 +1,75 @@
+<!-- Archivo que indica los campos equivalentes en ambos requests (QC y Dimensions).
+ El attributename es un campo identificatorio para el par.
+ El campo replicate indica si el atributo se debe copiar o no al momento de crear o actualizar el request ya sea de un lado o de otro -->
+
+<mapeo>
+	<attribute>
+		<attribute-mapping attributeName="idDim" attributeQC="user-01"  attributeDim="OBJECT_ID"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="idQc" attributeQC="id"  attributeDim="BUG_ID"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="nombre" attributeQC="name"  attributeDim="TITLE"/>		
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="tipo" attributeQC="type"  attributeDim="TYPE_NAME"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="estado" attributeQC="status"  attributeDim="STATUS"/>		
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="fechaSincronizacion" attributeQC="user-03"  attributeDim="SYNC_TIME"/>		
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="fechaAuditoria" attributeQC="last-modified"  attributeDim="LAST_UPDATED_DATE"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="comentarios" attributeQC="dev-comments"  attributeDim="COMENTARIO"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="detectadoEnCiclo" attributeQC="detected-in-rcyc"  attributeDim="DETECTADO_EN_CICLO"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="tipoIncidencia" attributeQC="user-09"  attributeDim="TIPO_INCIDENCIA"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="detectadoEnRelease" attributeQC="detected-in-rel"  attributeDim="DETECTADO_EN_RELEASE"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="prioridad" attributeQC="priority"  attributeDim="PRIORIDAD"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="componente" attributeQC="user-02"  attributeDim="COMPONENTE"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="fechaDeteccion" attributeQC="creation-time"  attributeDim="FECHA_DE_DETECCION"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="fechaCierre" attributeQC="closing-date"  attributeDim="FECHA_DE_CIERRE"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="asignadoA" attributeQC="owner"  attributeDim="ASSIGNED_TO"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="reproducible" attributeQC="reproducible"  attributeDim="REPRODUCIBLE"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="proyecto" attributeQC="project"  attributeDim="PROYECTO"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="detectadoPor" attributeQC="detected-by"  attributeDim="DETECTADO_POR"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="severidad" attributeQC="severity"  attributeDim="SEVERIDAD"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="descripcionGeneral" attributeQC="description"  attributeDim="DESCRIPTION"/>
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="descripcion" attributeQC="description"  attributeDim="DESCRIPCION"/>		
+	</attribute>
+	<attribute>
+		<attribute-mapping attributeName="releaseFijado" attributeQC="target-rel"  attributeDim="RELEASE_FIJADO"/>
+	</attribute>
+</mapeo>

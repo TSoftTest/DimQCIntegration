@@ -1,0 +1,27 @@
+<!-- Archivo que indica los estados equivalentes en ambos requests (QC y Dimensions). -->
+<mapeo>
+	<status>
+		<status-mapping statusQC="New"  statusDim="NEW"/>		
+	</status>
+	<status>
+		<status-mapping statusQC="Open"  statusDim="OPEN"/>		
+	</status>
+	<status>
+		<status-mapping statusQC="Progress"  statusDim="PROGRESS"/>	
+	</status>
+	<status>
+		<status-mapping statusQC="Fixed"  statusDim="RESOLVED"/>		
+	</status>
+	<status>
+		<status-mapping statusQC="Closed"  statusDim="CLOSE"/>		
+	</status>
+	<status>
+		<status-mapping statusQC="Rejected"  statusDim="REJECT"/>		
+	</status>	
+	<status>
+		<status-mapping statusQC="Reopen"  statusDim="REOPEN"/> 		
+	</status>
+	<status>
+		<status-mapping statusQC="Work Stopped"  statusDim="WORK_STOPPED"/>		
+	</status>
+</mapeo>

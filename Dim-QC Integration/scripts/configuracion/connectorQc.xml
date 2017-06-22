@@ -1,0 +1,24 @@
+<!-- Datos de configuracion para HPALM
+	 Es para listar los proyectos de Qc a los cuales se debe de conectar para sincronizar Defects con Requests 
+-->
+
+<mapeo>
+	<connectorQc>
+		<connectorQc-mapping userNameAlm="lrojas" rutaArchivoKeyAlm="C:C:/Users/dbuzzalino/Desktop/Tecnosoftware/Repositorio de proyectos/Integracion con QC/MigrationTest/build/configuracionclaves/almKey" 
+		                   rutaArchivoHashAlm="C:C:/Users/dbuzzalino/Desktop/Tecnosoftware/Repositorio de proyectos/Integracion con QC/MigrationTest/build/configuracionclaves/almHash"
+		                   domainAlm="DEFAULT" projectAlm="Proyecto_3"
+						   serverAlm="http://10.10.5.205" portAlm="8090" 
+						   listarQCAttributes="true" defectSummary="Defect Proy3 rápido 2"
+						   nombre-esquema-base="DEFAULT_PROYECTO_3_DB"/>
+	</connectorQc>
+	<!--<connectorQc>
+		<connectorQc-mapping userNameAlm="lrojas" passwordAlm="lrtsoftj"  domainAlm="DEFAULT" projectAlm="Pryecto_1" 
+						   serverAlm="http://10.10.5.205" portAlm="8090" 
+						   listarQCAttributes="false" defectSummary="" nombre-esquema-base="DEFAULT_PRYECTO_1_DB"/>
+	</connectorQc>
+	<connectorQc>
+		<connectorQc-mapping userNameAlm="lrojas" passwordAlm="lrtsoftj"  domainAlm="DEFAULT" projectAlm="Proyecto_4" 
+						   serverAlm="http://10.10.5.205" portAlm="8090" 
+						   listarQCAttributes="false" defectSummary="" nombre-esquema-base="DEFAULT_PROYECTO_4_DB"/>
+	</connectorQc>-->
+</mapeo>

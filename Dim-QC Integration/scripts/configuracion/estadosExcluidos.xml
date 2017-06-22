@@ -1,0 +1,15 @@
+<!-- Archivo que indica los estados excluidos de ser sincronizados. 
+	Dentro de "status-dim" se deberan de colocar los estados de Dimensions que no se quieren replicar en Qc.
+	Mientras que en "status-qc" se colocaran los estados de Qc que no se quieran sincronizar a Dimensions.
+-->
+
+<mapeo>
+	<status-dim>
+		<status-mapping status="NEW"/>
+		<status-mapping status="PROGRESS"/>
+	</status-dim>
+	<status-qc>
+		<status-mapping status="NEW"/>
+		<status-mapping status="PROGRESS"/>
+	</status-qc>
+</mapeo>
