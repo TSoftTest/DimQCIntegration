@@ -34,8 +34,10 @@ import com.serena.dmclient.objects.AttributeDefinition;
 import com.serena.dmclient.objects.AttributeType;
 import com.serena.dmclient.objects.ValidSet;
 import com.serena.dmclient.objects.ValidSetRowDetails;
+import com.tsoft.dimqc.connectors.alm.Entity;
 import com.tsoft.dimqc.connectors.alm.Entity.Fields.Field.Value;
 import com.tsoft.dimqc.connectors.alm.QcTarea;
+import com.tsoft.dimqc.connectors.exceptions.ServiceException;
 import com.tsoft.dimqc.connectors.utils.ConnectorProperties;
 import com.tsoft.dimqc.connectors.utils.mapping.CampoMultiple;
 import com.tsoft.dimqc.connectors.utils.mapping.Estado;
@@ -161,7 +163,7 @@ public class DimensionsTarea {
 				try {
 					String dimStatus = Estado.getInstance().getEquivalentStatus(Estado.QC, qcStatus);
 					if (!"".equals(dimStatus)) { // Si esta vacio significa que no existe
-																			 // su equivalente
+						                           // su equivalente
 						int numeroDeAtributoEstado = getAttributeNumber("STATUS");
 
 						requestDim.queryAttribute(numeroDeAtributoEstado);
@@ -178,7 +180,7 @@ public class DimensionsTarea {
 					}
 				} catch (DimensionsRuntimeException e) {
 					logger.debug(e); // Puede tirar exepcion de que el request ya se
-													 // encuentra en ese estado
+					                 // encuentra en ese estado
 				}
 
 				pasajeDeEstadoEnDimensions(requestQc, requestDim);
@@ -1223,12 +1225,12 @@ public class DimensionsTarea {
 				if (estadoFinalQc != null && !EstadoExcluido.getInstance().isEstadoExcluidoQc(estadoFinalQc)) {
 					String estadoFinalDim = Estado.getInstance().getEquivalentStatus(Estado.QC, estadoFinalQc);
 					if (estadoFinalDim != null && !"".equals(estadoFinalDim)) { // Si esta
-																																			// vacio
-																																			// significa
-																																			// que no
-																																			// existe
-																																			// su
-																																			// equivalente
+						                                                          // vacio
+						                                                          // significa
+						                                                          // que no
+						                                                          // existe
+						                                                          // su
+						                                                          // equivalente
 						request.actionTo(estadoFinalDim);
 					} else {
 						logger.error("No se pudo encontrar el equivalente en Dimensions del estado: " + estadoFinalQc);
@@ -1239,8 +1241,8 @@ public class DimensionsTarea {
 			}
 		} catch (DimensionsRuntimeException e) {
 			logger.debug(e);// Puede tirar exepcion de que el request ya se encuentra
-											// en ese estado, o que el estado que se quiere settear no
-											// existe
+			                // en ese estado, o que el estado que se quiere settear no
+			                // existe
 		}
 	}
 
@@ -1251,37 +1253,37 @@ public class DimensionsTarea {
 			logger.debug("Bajando archivo desde Dimensions");
 
 			String fileFolder = ConnectorProperties.getInstance().getDimensionsDownloadFolder(); // Carpeta
-																																													 // donde
-																																													 // esta
-																																													 // corriendo
-																																													 // el
-																																													 // servicio
-																																													 // (depende
-																																													 // de
-																																													 // windows)
+			                                                                                     // donde
+			                                                                                     // esta
+			                                                                                     // corriendo
+			                                                                                     // el
+			                                                                                     // servicio
+			                                                                                     // (depende
+			                                                                                     // de
+			                                                                                     // windows)
 			String dimensionsDownloadFileName = ConnectorProperties.getInstance().getDimensionsDownloadFileName(); // nombre
-																																																						 // con
-																																																						 // el
-																																																						 // que
-																																																						 // se
-																																																						 // va
-																																																						 // a
-																																																						 // crear
-																																																						 // el
-																																																						 // archivo
+			                                                                                                       // con
+			                                                                                                       // el
+			                                                                                                       // que
+			                                                                                                       // se
+			                                                                                                       // va
+			                                                                                                       // a
+			                                                                                                       // crear
+			                                                                                                       // el
+			                                                                                                       // archivo
 			String tempFolder = ConnectorProperties.getInstance().getRutaArchivosTemporales(); // Carpeta
-																																												 // a
-																																												 // donde
-																																												 // se
-																																												 // va
-																																												 // a
-																																												 // copiar
-																																												 // el
-																																												 // archivo
+			                                                                                   // a
+			                                                                                   // donde
+			                                                                                   // se
+			                                                                                   // va
+			                                                                                   // a
+			                                                                                   // copiar
+			                                                                                   // el
+			                                                                                   // archivo
 			String attachmentName = dimAttachment.getName(); // nombre del attachment,
-																											 // con el que se va a
-																											 // crear el archivo
-																											 // definitivo
+			                                                 // con el que se va a
+			                                                 // crear el archivo
+			                                                 // definitivo
 
 			String tempDownloadLocation = fileFolder + "/" + dimensionsDownloadFileName;
 			logger.debug("Intentando bajar archivo '" + attachmentName + "' a " + tempDownloadLocation);

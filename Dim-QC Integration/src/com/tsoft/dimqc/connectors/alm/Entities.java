@@ -1,4 +1,4 @@
-package ar.com.tssa.serena.connectors.alm;
+package com.tsoft.dimqc.connectors.alm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,10 @@ import javax.xml.bind.annotation.XmlType;
 public class Entities {
 	@XmlAttribute(name = "TotalResults", required = true)
 	protected int totalResults;
-	
-	@XmlElement(name="Entity")
+
+	@XmlElement(name = "Entity")
 	protected List<Entity> entities;
-	
+
 	public int getTotalResults() {
 		return totalResults;
 	}
@@ -28,20 +28,18 @@ public class Entities {
 		this.totalResults = totalResults;
 	}
 
-	public Entities(){		
+	public Entities() {
 	}
-	
+
 	public List<Entity> getEntities() {
 		if (entities == null) {
 			entities = new ArrayList<Entity>();
 		}
 		return this.entities;
 	}
-	
-	public void setEntities(List<Entity> entities){
+
+	public void setEntities(List<Entity> entities) {
 		this.entities = entities;
 	}
-	
-	
-	
+
 }

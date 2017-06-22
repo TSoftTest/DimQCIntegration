@@ -17,6 +17,9 @@ import com.serena.dmclient.api.Part;
 import com.serena.dmclient.api.Request;
 import com.serena.dmclient.api.RequestAttachment;
 import com.serena.dmclient.api.SystemAttributes;
+import com.tsoft.dimqc.connectors.alm.Entities;
+import com.tsoft.dimqc.connectors.alm.Entity;
+import com.tsoft.dimqc.connectors.alm.Entity.Fields.Field;
 import com.tsoft.dimqc.connectors.alm.QcTarea;
 import com.tsoft.dimqc.connectors.dimensions.DimensionsProducts;
 import com.tsoft.dimqc.connectors.dimensions.DimensionsTarea;
@@ -106,35 +109,35 @@ public class Sincronizador {
 									String syncTimeValueQc = syncTime;
 									try {
 										fechaSincQc = qcDateFormat.parse(syncTimeValueQc);// Obtengo
-																																			// la
-																																			// fecha
-																																			// de
-																																			// sincronizacion
-																																			// y la
-																																			// convierto
-																																			// a date
-																																			// para
-																																			// compararla
-																																			// con la
-																																			// de
-																																			// auditoria
+										                                                  // la
+										                                                  // fecha
+										                                                  // de
+										                                                  // sincronizacion
+										                                                  // y la
+										                                                  // convierto
+										                                                  // a date
+										                                                  // para
+										                                                  // compararla
+										                                                  // con la
+										                                                  // de
+										                                                  // auditoria
 										logger.debug("El request de QC tiene fecha de sincronizacion: " + fechaSincQc);
 										// Obtengo la fecha de auditoria
 										String fechaAudQcAux = lastModified;
 										try {
 											fechaAudQc = qcDateFormat.parse(fechaAudQcAux); // Obtengo
-																																			// la
-																																			// fecha
-																																			// de
-																																			// auditoria
-																																			// y la
-																																			// convierto
-																																			// a date
-																																			// para
-																																			// compararla
-																																			// con la
-																																			// de
-																																			// sincronizacion
+											                                                // la
+											                                                // fecha
+											                                                // de
+											                                                // auditoria
+											                                                // y la
+											                                                // convierto
+											                                                // a date
+											                                                // para
+											                                                // compararla
+											                                                // con la
+											                                                // de
+											                                                // sincronizacion
 											logger.debug("El request de QC tiene fecha de auditoria: " + fechaAudQc);
 											boolean comparacionFechasQc = compareDates(fechaSincQc, fechaAudQc, logger);
 											if (comparacionFechasQc) {
@@ -176,38 +179,38 @@ public class Sincronizador {
 													fechaAudDim = dimDateFormat.parse(fechaAudDimAux);
 													logger.debug("El request de Dimensions tiene fecha de auditoria: " + fechaAudDim);
 													boolean comparacionFechasDim = compareDates(fechaSincDim, fechaAudDim, logger); // Si
-																																																					// la
-																																																					// diferencia
-																																																					// es
-																																																					// de
-																																																					// mas
-																																																					// de
-																																																					// X
-																																																					// minutos,
-																																																					// sincronizo
-																																																					// el
-																																																					// request,
-																																																					// caso
-																																																					// contrario
-																																																					// considero
-																																																					// que
-																																																					// el
-																																																					// request
-																																																					// esta
-																																																					// sincronizado
+													                                                                                // la
+													                                                                                // diferencia
+													                                                                                // es
+													                                                                                // de
+													                                                                                // mas
+													                                                                                // de
+													                                                                                // X
+													                                                                                // minutos,
+													                                                                                // sincronizo
+													                                                                                // el
+													                                                                                // request,
+													                                                                                // caso
+													                                                                                // contrario
+													                                                                                // considero
+													                                                                                // que
+													                                                                                // el
+													                                                                                // request
+													                                                                                // esta
+													                                                                                // sincronizado
 													if (comparacionFechasQc && comparacionFechasDim) { // Si
-																																						 // ambas
-																																						 // fechas
-																																						 // son
-																																						 // mayores
-																																						 // a
-																																						 // X
-																																						 // minutos,
-																																						 // paso
-																																						 // de
-																																						 // QC
-																																						 // a
-																																						 // Dimensions
+														                                                 // ambas
+														                                                 // fechas
+														                                                 // son
+														                                                 // mayores
+														                                                 // a
+														                                                 // X
+														                                                 // minutos,
+														                                                 // paso
+														                                                 // de
+														                                                 // QC
+														                                                 // a
+														                                                 // Dimensions
 														logger.debug("La diferencia de fechas en ambos requests es mayor a " + ConnectorProperties.getInstance().getDifTime()
 														    + " minutos. Ambos cambiaron luego de la ultima sincronizacion. Se copia segun paramtro prev");
 														copiarSegunPrioridad(requestQc, requestDim, logger, qcTarea, dimTarea, nombreEsquemaBaseQc, proyectosEnDim);
@@ -254,8 +257,8 @@ public class Sincronizador {
 										copiarSegunPrioridad(requestQc, requestDim, logger, qcTarea, dimTarea, nombreEsquemaBaseQc, proyectosEnDim);
 									}
 								} else {// Si el dimensionsID que tiene QC es de un request de
-												// un tipo que no es BUG, esto no deberia pasar, loggeo
-												// el error
+									      // un tipo que no es BUG, esto no deberia pasar, loggeo
+									      // el error
 									logger.error("El request de dimensions con ID '" + dimensionsId + "' no es del tipo 'BUG', no se realizara ninguna accion.");
 								}
 							}
@@ -274,7 +277,7 @@ public class Sincronizador {
 								    + ", entonces no se replicara.");
 							} else {
 								logger.debug("El request de QC no tiene un request en Dimensions asociado, el mismo se creara.");
-								ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(ConnectorProperties.getInstance().getCampoProjectQc());
+								com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(ConnectorProperties.getInstance().getCampoProjectQc());
 								String proyectQc = new String();
 								if (!"".equals(attributeField.getValue().get(0).getValue())) {
 									proyectQc = attributeField.getValue().get(0).getValue();
@@ -369,15 +372,15 @@ public class Sincronizador {
 		Logger filesLogger = Logger.getLogger("filesLogger");
 
 		try {
-			ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName("attachment");
+			com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName("attachment");
 			String attachment = new String();
 			if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())) {
 				attachment = attributeField.getValue().get(0).getValue();// ESTO ES PARA
-																																 // FILTRAR SI
-																																 // LA ENTIDAD
-																																 // TIENE
-																																 // ARCHIVOS O
-																																 // NO
+				                                                         // FILTRAR SI
+				                                                         // LA ENTIDAD
+				                                                         // TIENE
+				                                                         // ARCHIVOS O
+				                                                         // NO
 			}
 
 			if ("Y".equals(attachment)) {
@@ -516,7 +519,7 @@ public class Sincronizador {
 				dimTarea.updateDimensionsRequest(requestDim, requestQc, qcTarea, nombreEsquemaBaseQc, proyectosEnDim);
 				filesSynchronizationQCToDim(requestQc, requestDim, logger, qcTarea, dimTarea);
 				qcTarea.updateFechaSincronizacionQc(requestQc); // Seteo fecha de
-																												// sincronizacion
+				                                                // sincronizacion
 			} else {
 				logger.warn("La entidad/objeto se encuentra bloqueado, se sincronizara cuando no lo este.");
 			}
@@ -539,10 +542,10 @@ public class Sincronizador {
 		try {
 			if (!qcTarea.verifyObjectStatus(requestQc)) {
 				qcTarea.updateQcRequest(requestQc, requestDim, dimTarea);// Actualizo la
-																																 // entidad
+				                                                         // entidad
 				filesSynchronizationDimToQC(requestQc, requestDim, logger, qcTarea, dimTarea);
 				dimTarea.updateFechaSincronizacionDim(requestDim); // Seteo fecha de
-																													 // sincronizacion
+				                                                   // sincronizacion
 			} else {
 				logger.warn("La entidad/objeto se encuentra bloqueado, se sincronizara cuando no lo este.");
 			}
