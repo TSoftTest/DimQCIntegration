@@ -6,5 +6,20 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="external-libs/bcprov-jdk16-1.46.jar"/>
+	<classpathentry kind="lib" path="external-libs/com.springsource.org.opensaml-1.1.0.jar"/>
+	<classpathentry kind="lib" path="external-libs/commons-logging-api.jar"/>
+	<classpathentry kind="lib" path="external-libs/darius.jar"/>
+	<classpathentry kind="lib" path="external-libs/dmclient.jar"/>
+	<classpathentry kind="lib" path="external-libs/dmfile.jar"/>
+	<classpathentry kind="lib" path="external-libs/dmnet.jar"/>
+	<classpathentry kind="lib" path="external-libs/dmpmcli.jar"/>
+	<classpathentry kind="lib" path="external-libs/java-security-encription-client-1.0.1.jar"/>
+	<classpathentry kind="lib" path="external-libs/js.jar"/>
+	<classpathentry kind="lib" path="external-libs/jsoup-1.7.2.jar"/>
+	<classpathentry kind="lib" path="external-libs/junit.jar"/>
+	<classpathentry kind="lib" path="external-libs/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="external-libs/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="external-libs/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
