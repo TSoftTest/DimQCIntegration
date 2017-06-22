@@ -1,0 +1,115 @@
+<project name="SCCMIntegrationDaemon" basedir="." default="">
+
+	<target name="build.properties.test">
+		<condition property="build.properties.notexist">
+	    	<not>
+	        	<available file="build.properties" property="build.properties.exists" />
+			</not>
+		</condition>
+	</target>
+	
+	<target name="assign.propertiesFile" depends="build.properties.test" unless="build.properties.notexist">
+		<property name="propertiesFile" value="build.properties" />
+	</target>
+	
+	<target name="assign.default.propertiesFile" depends="build.properties.test" if="build.properties.notexist">
+		<property name="propertiesFile" value="build.default.properties" />
+	</target>
+	
+	<target name="read.properties" depends="assign.propertiesFile, assign.default.propertiesFile" description="Lee el archivo de Propiedades">
+		<property file="${propertiesFile}" prefix="ant"/>
+		<echo message="Usando archivo de propiedades: ${propertiesFile}"/>
+	</target>
+	
+	<path id="libraries" description="Indico las dependencias para pasarlas al classpath en la compilacion">
+			<fileset dir="../external-libs">
+				<include name="**/*.jar" />
+			</fileset>
+	</path>
+	
+	<target name="clean" description="Se realiza una limpieza">
+	    <delete dir="classes" quiet="true"/>
+		<delete dir="dependencies" quiet="true" />
+	    <delete dir="dist" quiet="true" />
+	</target>
+	
+	<target name="init" depends="clean,read.properties" description="Se crean los directorios necesarios para el empaquetado">
+		<echo>Basedir: ${basedir} </echo>
+		<property name="jarFile" value="${ant.jarname}.jar" /> 
+		<property name="release" value="${ant.release}" />
+		<mkdir dir="classes"/>
+	    <mkdir dir="dist"/>
+	    <mkdir dir="dist/jar"/>
+		<mkdir dir="dist/instalador"/>
+		<mkdir dir="dist/configuracion"/>
+	</target>
+	
+	<target name="copy" description="Se copian las librerias">
+		<copy todir="dist/lib" >
+			<fileset dir="../external-libs"/>
+		</copy>
+	</target>
+	
+	<target name="compile" depends="init,copy">
+	    <javac srcdir="../src" classpathref="libraries" destdir="classes" debug="true" encoding="UTF-8" includeantruntime="false" source="1.6" target="1.6">
+	    	<compilerarg value="-Xlint:unchecked"/>
+		</javac>
+	</target>
+	
+	<target name="compress" depends="compile" description="Se crea el jar, se copian los archivos de instalacion y de configuracion">
+        <jar destfile="${jarFile}" basedir="./classes">
+			<manifest>
+				<attribute name="Version" value="${release}" />
+				<attribute name="Author" value="TSoft"/>
+			</manifest>
+		</jar>
+		<copy  todir="dist/jar">
+				<fileset file="${jarFile}"/>
+		</copy>
+		<delete file="${jarFile}"/>
+		<copy todir="dist/instalador">
+				<fileset dir="instalador"/>
+		</copy>
+		<copy todir="dist/configuracion">
+			<fileset dir="configuracion"/>
+		</copy>
+	</target>
+	
+	<target name="compressBCCLTEST" depends="compile" description="Se crea el jar, se copian los archivos de instalacion y de configuracion del BCCL">
+        <jar destfile="${jarFile}" basedir="./classes">
+			<manifest>
+				<attribute name="Version" value="${release}" />
+				<attribute name="Author" value="TSoft"/>
+			</manifest>
+		</jar>
+		<copy  todir="dist/jar">
+				<fileset file="${jarFile}"/>
+		</copy>
+		<delete file="${jarFile}"/>
+		<copy todir="dist/instalador">
+				<fileset dir="instalador"/>
+		</copy>
+		<copy todir="dist/configuracion">
+			<fileset dir="configuracionBCCL_TEST"/>
+		</copy>
+	</target>
+	
+	<target name="compressBCCLPROD" depends="compile" description="Se crea el jar, se copian los archivos de instalacion y de configuracion del BCCL">
+        <jar destfile="${jarFile}" basedir="./classes">
+			<manifest>
+				<attribute name="Version" value="${release}" />
+				<attribute name="Author" value="TSoft"/>
+			</manifest>
+		</jar>
+		<copy  todir="dist/jar">
+				<fileset file="${jarFile}"/>
+		</copy>
+		<delete file="${jarFile}"/>
+		<copy todir="dist/instalador">
+				<fileset dir="instalador"/>
+		</copy>
+		<copy todir="dist/configuracion">
+			<fileset dir="configuracionBCCL_PROD"/>
+		</copy>
+	</target>
+</project>
