@@ -18,9 +18,11 @@ import org.apache.log4j.Logger;
 
 import com.serena.dmclient.api.Request;
 import com.tsoft.dimqc.connectors.alm.Entity.Fields;
+import com.tsoft.dimqc.connectors.alm.Entity.Fields.Field;
 import com.tsoft.dimqc.connectors.alm.Entity.Fields.Field.Value;
 import com.tsoft.dimqc.connectors.dimensions.DimensionsProducts;
 import com.tsoft.dimqc.connectors.dimensions.DimensionsTarea;
+import com.tsoft.dimqc.connectors.exceptions.ServiceException;
 import com.tsoft.dimqc.connectors.utils.ConnectorProperties;
 import com.tsoft.dimqc.connectors.utils.ConnectorQc;
 import com.tsoft.dimqc.connectors.utils.mapping.CampoMultiple;

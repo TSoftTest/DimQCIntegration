@@ -1,6 +1,6 @@
 package com.tsoft.dimqc;
 
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import com.tsoft.dimqc.connectors.daemon.DaemonThread;
 import com.tsoft.dimqc.connectors.utils.ConnectorProperties;

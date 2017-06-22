@@ -147,7 +147,7 @@ public class DimensionsTarea {
 			updateTreeAttribute(requestDim, requestQc, "detectadoEnRelease");
 
 			String attributeName = Mapeo.getInstance().getAttributeByName(Mapeo.QC, "estado");
-			ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeName);
+			com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeName);
 			String qcStatus = new String();
 			if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())) {
 				qcStatus = attributeField.getValue().get(0).getValue();
@@ -208,7 +208,7 @@ public class DimensionsTarea {
 	private void updateDescriptionAttribute(Request requestDim, Entity requestQc, String campo) throws Exception {
 		logger.debug("Setteando el atributo '" + campo + "' de Qc a Dimensions.");
 		String attributeQc = Mapeo.getInstance().getAttributeByName(Mapeo.QC, campo);
-		ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
+		com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
 		String description = new String();
 
 		if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())
@@ -246,7 +246,7 @@ public class DimensionsTarea {
 	private void updateCommentsAttribute(Request requestDim, Entity requestQc) throws Exception {
 		logger.debug("Setteando el atributo 'comentarios' de Qc a Dimensions.");
 		String attributeQc = Mapeo.getInstance().getAttributeByName(Mapeo.QC, "comentarios");
-		ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
+		com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
 		String comentario = new String();
 
 		if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())
@@ -300,7 +300,7 @@ public class DimensionsTarea {
 	 */
 	private void updateTreeAttribute(Request requestDim, Entity requestQc, String attribute) throws Exception {
 		String attributeQc = Mapeo.getInstance().getAttributeByName(Mapeo.QC, attribute);
-		ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
+		com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
 		String value = "";
 
 		if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getReferenceValue())
@@ -337,7 +337,7 @@ public class DimensionsTarea {
 		int attributeNumber = getAttributeNumber(attributeDim);
 		attributeQc = Mapeo.getInstance().getAttributeByName(Mapeo.QC, attributeName);
 
-		ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
+		com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
 		String attribute = new String();
 		if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())
 		    && !fieldsQc.get(attributeQc).isSupportsMultivalue()) {
@@ -360,7 +360,7 @@ public class DimensionsTarea {
 				logger.info("Se actualiza el ValidSet");
 
 				// Se obtiene el campo de QC para detectar el id de la lista
-				ar.com.tssa.serena.connectors.utils.xml.FieldsQc.Field campo = this.fieldsQc.get(attributeQc);
+				com.tsoft.dimqc.connectors.utils.xml.FieldsQc.Field campo = this.fieldsQc.get(attributeQc);
 
 				// Se obtiene el ID de la lista asociada al campo de QC
 				int idDeLista = campo.getListId();
@@ -464,7 +464,7 @@ public class DimensionsTarea {
 
 			// Setteo el id de QC en Dimensions
 			attributeQc = Mapeo.getInstance().getAttributeByName(Mapeo.QC, "idQc");
-			ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
+			com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
 
 			String idQc = new String();
 			if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())
@@ -603,7 +603,7 @@ public class DimensionsTarea {
 		int attributeNumber = getAttributeNumber(attributeDim);
 		attributeQc = Mapeo.getInstance().getAttributeByName(Mapeo.QC, attributeName);
 
-		ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
+		com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeQc);
 		String attribute = new String();
 
 		Vector<String> valores = new Vector<String>();
@@ -631,7 +631,7 @@ public class DimensionsTarea {
 				logger.info("Se actualiza el ValidSet");
 
 				// Se obtiene el campo de QC para detectar el id de la lista
-				ar.com.tssa.serena.connectors.utils.xml.FieldsQc.Field campo = this.fieldsQc.get(attributeQc);
+				com.tsoft.dimqc.connectors.utils.xml.FieldsQc.Field campo = this.fieldsQc.get(attributeQc);
 
 				// Se obtiene el ID de la lista asociada al campo de QC
 				int idDeLista = campo.getListId();
@@ -1181,7 +1181,7 @@ public class DimensionsTarea {
 			logger.debug("Obteniendo el atributo '" + nombreDeCampoBaseline + "' de Qc.");
 			attributeQc = Mapeo.getInstance().getAttributeByName(Mapeo.QC, nombreDeCampoBaseline);
 
-			ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQC.getFields().getFieldByName(attributeQc);
+			com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQC.getFields().getFieldByName(attributeQc);
 
 			if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())
 			    && !fieldsQc.get(attributeQc).isSupportsMultivalue()) {
@@ -1207,7 +1207,7 @@ public class DimensionsTarea {
 
 		String attributeName = Mapeo.getInstance().getAttributeByName(Mapeo.QC, "estado");
 
-		ar.com.tssa.serena.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeName);
+		com.tsoft.dimqc.connectors.alm.Entity.Fields.Field attributeField = requestQc.getFields().getFieldByName(attributeName);
 		String qcStatus = new String();
 		if (!attributeField.getValue().isEmpty() && attributeField.getValue().get(0) != null && !"".equals(attributeField.getValue().get(0).getValue())
 		    && !fieldsQc.get(attributeName).isSupportsMultivalue()) {
